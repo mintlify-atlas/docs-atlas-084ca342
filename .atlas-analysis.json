@@ -1,0 +1,62 @@
+{
+  "projectType": "saas",
+  "projectName": "Snippet Bubble Manager",
+  "projectDescription": "A floating, always-on-top code snippet manager with Firebase-powered storage, AI generation, and one-click clipboard copy.",
+  "theme": "palm",
+  "primaryColor": "#94cb04",
+  "lightColor": "#545454",
+  "darkColor": null,
+  "navigation": {
+    "tabs": [
+      {
+        "tab": "Documentation",
+        "groups": [
+          {
+            "group": "Get Started",
+            "pages": ["introduction", "quickstart", "firebase-setup"]
+          },
+          {
+            "group": "Core Features",
+            "pages": [
+              "features/snippets",
+              "features/folders",
+              "features/floating-bubble",
+              "features/ai-generation",
+              "features/import-export"
+            ]
+          },
+          {
+            "group": "Configuration",
+            "pages": ["configuration/environment", "configuration/firestore-rules"]
+          },
+          {
+            "group": "Reference",
+            "pages": ["reference/data-model", "reference/languages", "reference/templates"]
+          }
+        ]
+      }
+    ]
+  },
+  "keyFeatures": [
+    "Floating draggable bubble UI with quick-access snippet panel",
+    "One-click copy to clipboard with last-copied tracking",
+    "AI snippet generation via Google Gemini",
+    "AI-powered inline code completions in the Monaco editor",
+    "Snippet organization with folders, favorites, and pinning",
+    "Full-text search across title, code, tags, and language",
+    "Import and export snippets as JSON",
+    "Firebase Authentication with Google sign-in",
+    "Real-time Firestore sync with ownership-based security rules",
+    "Built-in snippet templates for common patterns"
+  ],
+  "publicApiSurface": [
+    "Snippet interface (id, title, code, language, description, tags, isFavorite, isPinned, ownerId, lastCopiedAt, createdAt, updatedAt, folderId)",
+    "Folder interface (id, name, ownerId, createdAt, updatedAt)",
+    "UserProfile interface (uid, email, displayName, photoURL)",
+    "SnippetTemplate interface (name + Partial<Snippet>)",
+    "SNIPPET_TEMPLATES constant array",
+    "Firestore collection: snippets",
+    "Firestore collection: folders",
+    "Firebase Auth: Google sign-in via signInWithPopup"
+  ]
+}
