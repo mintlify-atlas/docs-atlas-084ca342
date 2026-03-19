@@ -1,80 +1,109 @@
 ---
 title: "Quickstart"
-description: "Start building awesome documentation in minutes"
+description: "Get Snippet Bubble Manager running in under 5 minutes"
 ---
 
-## Get started in three steps
+<Warning>
+  Snippet Bubble Manager requires a Firebase project with Firestore and Authentication enabled. Complete [Firebase Setup](/firebase-setup) before continuing.
+</Warning>
 
-Get your documentation site running locally and make your first customization.
+## Prerequisites
 
-### Step 1: Set up your local environment
+- Node.js 18 or later
+- A Firebase project ([set one up here](/firebase-setup))
+- A Google account for sign-in
 
-<AccordionGroup>
-  <Accordion icon="copy" title="Clone your docs locally">
-    During the onboarding process, you created a GitHub repository with your docs content if you didn't already have one. You can find a link to this repository in your [dashboard](https://dashboard.mintlify.com).
-    
-    To clone the repository locally so that you can make and preview changes to your docs, follow the [Cloning a repository](https://docs.github.com/en/repositories/creating-and-managing-repositories/cloning-a-repository) guide in the GitHub docs.
-  </Accordion>
-  <Accordion icon="rectangle-terminal" title="Start the preview server">
-    1. Install the Mintlify CLI: `npm i -g mint`
-    2. Navigate to your docs directory and run: `mint dev`
-    3. Open `http://localhost:3000` to see your docs live!
-    
-    <Tip>Your preview updates automatically as you edit files.</Tip>
-  </Accordion>
-</AccordionGroup>
+## Get up and running
 
-### Step 2: Deploy your changes
+<Steps>
+  <Step title="Clone the repository">
+    ```bash
+    git clone https://github.com/CassieMarie0728/snippet-bubble-manager.git
+    cd snippet-bubble-manager
+    ```
+  </Step>
 
-<AccordionGroup>
-  <Accordion icon="github" title="Install our GitHub app">
-    Install the Mintlify GitHub app from your [dashboard](https://dashboard.mintlify.com/settings/organization/github-app).
-    
-    Our GitHub app automatically deploys your changes to your docs site, so you don't need to manage deployments yourself.
-</Accordion>
-<Accordion icon="palette" title="Update your site name and colors">
-    For a first change, let's update the name and colors of your docs site.
+  <Step title="Install dependencies">
+    ```bash
+    npm install
+    ```
+  </Step>
 
-    1. Open `docs.json` in your editor.
-    2. Change the `"name"` field to your project name.
-    3. Update the `"colors"` to match your brand.
-    4. Save and see your changes instantly at `http://localhost:3000`.
+  <Step title="Configure environment variables">
+    Create a `.env.local` file in the project root with your Firebase credentials:
 
-    <Tip>Try changing the primary color to see an immediate difference!</Tip>
-  </Accordion>
-</AccordionGroup>
+    ```bash .env.local
+    VITE_FIREBASE_API_KEY=your_api_key_here
+    VITE_FIREBASE_AUTH_DOMAIN=your_project.firebaseapp.com
+    VITE_FIREBASE_PROJECT_ID=your_project_id
+    VITE_FIREBASE_STORAGE_BUCKET=your_project.appspot.com
+    VITE_FIREBASE_MESSAGING_SENDER_ID=your_sender_id
+    VITE_FIREBASE_APP_ID=your_app_id
+    ```
 
-### Step 3: Go live
+    Find these values in the Firebase console under **Project Settings → Your apps → SDK setup and configuration**.
+  </Step>
 
-<Accordion icon="rocket" title="Publish your docs">
-  1. Commit and push your changes.
-  2. Your docs will update and be live in moments!
-</Accordion>
+  <Step title="Add firebase-applet-config.json">
+    Create `firebase-applet-config.json` in the project root. This file is imported directly by `firebase.ts`:
+
+    ```json firebase-applet-config.json
+    {
+      "apiKey": "your_api_key_here",
+      "authDomain": "your_project.firebaseapp.com",
+      "projectId": "your_project_id",
+      "storageBucket": "your_project.appspot.com",
+      "messagingSenderId": "your_sender_id",
+      "appId": "your_app_id",
+      "firestoreDatabaseId": "(default)"
+    }
+    ```
+
+    <Note>
+      Use `"(default)"` for `firestoreDatabaseId` unless you created a named Firestore database.
+    </Note>
+  </Step>
+
+  <Step title="Start the development server">
+    ```bash
+    npm run dev
+    ```
+
+    Open [http://localhost:3000](http://localhost:3000) in your browser.
+  </Step>
+
+  <Step title="Sign in with Google">
+    On the landing screen, click **Sign in with Google**. Firebase Authentication handles the OAuth flow — your Google account becomes the owner of your snippet library.
+  </Step>
+
+  <Step title="Create your first snippet">
+    1. Click **New Snippet** in the top-right header.
+    2. Fill in a **Title** (e.g. "Fetch with error handling").
+    3. Select a **Language** from the dropdown (e.g. JavaScript).
+    4. Paste or type your code in the Monaco editor.
+    5. Click **Save**.
+
+    Your snippet appears in the main grid and is immediately available in the floating bubble.
+
+    <Tip>
+      Instead of typing code manually, try the AI generation shortcut: type a description in the "Generate with AI" field and press **Enter**. Gemini will generate the title, code, and language automatically. See [AI Generation](/features/ai-generation) for details.
+    </Tip>
+  </Step>
+</Steps>
 
 ## Next steps
 
-Now that you have your docs running, explore these key features:
-
 <CardGroup cols={2}>
-
-<Card title="Write Content" icon="pen-to-square" href="/essentials/markdown">
-  Learn MDX syntax and start writing your documentation.
-</Card>
-
-<Card title="Customize style" icon="palette" href="/essentials/settings">
-  Make your docs match your brand perfectly.
-</Card>
-
-<Card title="Add code examples" icon="square-code" href="/essentials/code">
-  Include syntax-highlighted code blocks.
-</Card>
-
-<Card title="API documentation" icon="code" href="/api-reference/introduction">
-  Auto-generate API docs from OpenAPI specs.
-</Card>
-
+  <Card title="Floating bubble" icon="circle-dot" href="/features/floating-bubble">
+    Learn how to use the draggable bubble overlay to copy snippets without leaving your work.
+  </Card>
+  <Card title="AI generation" icon="wand-magic-sparkles" href="/features/ai-generation">
+    Generate snippets and get inline code completions with Google Gemini.
+  </Card>
+  <Card title="Folders & organization" icon="folder" href="/features/folders">
+    Keep your snippet library organized with folders, pinning, and favorites.
+  </Card>
+  <Card title="Import & export" icon="arrow-right-arrow-left" href="/features/import-export">
+    Back up your snippets or migrate from another tool.
+  </Card>
 </CardGroup>
-
-<Note>
-  **Need help?** See our [full documentation](https://mintlify.com/docs) or join our [community](https://mintlify.com/community).
-</Note>

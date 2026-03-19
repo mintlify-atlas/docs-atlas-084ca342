@@ -1,0 +1,50 @@
+---
+title: "Supported languages"
+description: "All languages available in the snippet editor with their syntax identifiers"
+---
+
+Snippet Bubble Manager supports 27 languages for syntax highlighting in the Monaco editor and the snippet preview cards. When you save a snippet, the `language` field stores the identifier value shown in the table below.
+
+<Info>
+  Both the Monaco editor (used when editing a snippet) and react-syntax-highlighter (used in preview cards) rely on the `language` value for syntax highlighting. Using the same identifier ensures consistent highlighting in both views.
+</Info>
+
+## Language identifiers
+
+| Display name | Language value |
+| --- | --- |
+| Plain Text | `text` |
+| JavaScript | `javascript` |
+| TypeScript | `typescript` |
+| Python | `python` |
+| Java | `java` |
+| C++ | `cpp` |
+| C# | `csharp` |
+| PHP | `php` |
+| Ruby | `ruby` |
+| Swift | `swift` |
+| Go | `go` |
+| Rust | `rust` |
+| Kotlin | `kotlin` |
+| SQL | `sql` |
+| HTML | `html` |
+| CSS | `css` |
+| Bash | `bash` |
+| JSON | `json` |
+| YAML | `yaml` |
+| Markdown | `markdown` |
+| XML | `xml` |
+| C | `c` |
+| R | `r` |
+| Dart | `dart` |
+| Scala | `scala` |
+| Perl | `perl` |
+| Lua | `lua` |
+
+<Note>
+  The `language` value stored in Firestore must be one of the identifiers listed above for syntax highlighting to work correctly. Unrecognized values fall back to plain text rendering with no highlighting.
+</Note>
+
+<Tip>
+  When you use **Generate with AI**, the AI automatically detects the most appropriate language from your prompt and sets the `language` field for you. You can override the detected value using the language selector before saving.
+</Tip>

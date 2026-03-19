@@ -1,0 +1,92 @@
+---
+title: "Environment variables"
+description: "Configure Firebase credentials and API keys for your deployment"
+---
+
+Snippet Bubble Manager uses two configuration files: a `.env.local` file for Vite environment variables and a `firebase-applet-config.json` file for Firebase initialization. Both must be present before you run the app.
+
+<Warning>
+Never commit `.env.local` or `firebase-applet-config.json` to version control if they contain real credentials. Add both files to your `.gitignore` before your first commit.
+</Warning>
+
+## .env.local
+
+Create a `.env.local` file in the project root. Vite automatically loads this file at build time and makes all `VITE_*` variables available to the client bundle.
+
+```bash .env.local
+VITE_FIREBASE_API_KEY=your_key_here
+VITE_FIREBASE_AUTH_DOMAIN=your_project.firebaseapp.com
+VITE_FIREBASE_PROJECT_ID=your_project_id
+VITE_FIREBASE_STORAGE_BUCKET=your_project.appspot.com
+VITE_FIREBASE_MESSAGING_SENDER_ID=xxxx
+VITE_FIREBASE_APP_ID=xxxx
+```
+
+### Variable reference
+
+| Variable | Required | Description |
+| --- | --- | --- |
+| `VITE_FIREBASE_API_KEY` | Yes | Firebase Web API key from your Firebase project settings |
+| `VITE_FIREBASE_AUTH_DOMAIN` | Yes | Firebase auth domain (format: `project-id.firebaseapp.com`) |
+| `VITE_FIREBASE_PROJECT_ID` | Yes | Firebase project ID |
+| `VITE_FIREBASE_STORAGE_BUCKET` | Yes | Firebase storage bucket (format: `project-id.appspot.com`) |
+| `VITE_FIREBASE_MESSAGING_SENDER_ID` | Yes | Cloud Messaging sender ID |
+| `VITE_FIREBASE_APP_ID` | Yes | Firebase web app ID |
+| `GEMINI_API_KEY` | For AI features | Google Gemini API key — only required if you want AI generation and completions |
+
+### Where to find these values
+
+<Steps>
+  <Step title="Open the Firebase console">
+    Go to [console.firebase.google.com](https://console.firebase.google.com) and select your project.
+  </Step>
+  <Step title="Navigate to project settings">
+    Click the gear icon next to **Project Overview** in the left sidebar, then select **Project settings**.
+  </Step>
+  <Step title="Locate your web app">
+    Scroll to the **Your apps** section. If you haven't registered a web app yet, click **Add app** and choose the web (`</>`) platform.
+  </Step>
+  <Step title="Copy the config values">
+    Under **SDK setup and configuration**, select **Config**. Firebase displays all the values you need: `apiKey`, `authDomain`, `projectId`, `storageBucket`, `messagingSenderId`, and `appId`. Copy each value into the matching variable in `.env.local`.
+  </Step>
+</Steps>
+
+To get a Gemini API key, visit [aistudio.google.com](https://aistudio.google.com), sign in with your Google account, and create a new API key.
+
+<Note>
+Vite only exposes variables prefixed with `VITE_` to the client bundle. `GEMINI_API_KEY` does not use this prefix, so Vite does not include it in the browser bundle. The app accesses it via `process.env.GEMINI_API_KEY` — this is an intentional pattern in the codebase for server-side or build-time usage.
+</Note>
+
+<Tip>
+Create a `.env.example` file that lists all required variable names with placeholder values. Commit this file to your repository so teammates know exactly what to configure without exposing real credentials.
+</Tip>
+
+## firebase-applet-config.json
+
+In addition to `.env.local`, the app reads `firebase-applet-config.json` from the project root to initialize Firebase and specify the Firestore database ID.
+
+```json firebase-applet-config.json
+{
+  "apiKey": "your_api_key",
+  "authDomain": "your_project.firebaseapp.com",
+  "projectId": "your_project_id",
+  "storageBucket": "your_project.appspot.com",
+  "messagingSenderId": "xxxx",
+  "appId": "xxxx",
+  "firestoreDatabaseId": "(default)"
+}
+```
+
+### Field reference
+
+| Field | Description |
+| --- | --- |
+| `apiKey` | Firebase Web API key |
+| `authDomain` | Firebase auth domain |
+| `projectId` | Firebase project ID |
+| `storageBucket` | Firebase storage bucket |
+| `messagingSenderId` | Cloud Messaging sender ID |
+| `appId` | Firebase web app ID |
+| `firestoreDatabaseId` | The Firestore database to connect to. Use `"(default)"` for the default Firestore database, or provide a named database ID if you created a non-default database. |
+
+The values for all fields except `firestoreDatabaseId` are the same as the values in your `.env.local` file. Both files must be kept in sync.

@@ -1,0 +1,154 @@
+---
+title: "Built-in templates"
+description: "Pre-built code snippet templates you can use as a starting point"
+---
+
+Snippet Bubble Manager includes 5 built-in templates accessible from the New Snippet modal. Each template pre-fills the title, code, language, description, and tags fields so you can get started quickly without writing boilerplate from scratch.
+
+## Accessing templates
+
+To use a template:
+
+<Steps>
+  <Step title="Open the New Snippet modal">
+    Click the **New Snippet** button in the sidebar or main toolbar.
+  </Step>
+  <Step title="Navigate to the AI generation section">
+    Scroll to the **Generate with AI** section at the bottom of the snippet form.
+  </Step>
+  <Step title="Select a template">
+    Click **Use Template** to open the template picker, then select the template you want.
+  </Step>
+  <Step title="Edit and save">
+    All form fields are pre-filled from the template. Edit any field before clicking **Save**.
+  </Step>
+</Steps>
+
+<Note>
+  Applying a template fills in the title, code, language, description, and tags fields in the form. You can edit any of these values before saving — the template is just a starting point.
+</Note>
+
+<Tip>
+  You can combine templates with AI generation: apply a template to get a working baseline, then use **Generate with AI** to modify or extend it based on a prompt.
+</Tip>
+
+## Available templates
+
+<AccordionGroup>
+  <Accordion title="React Functional Component">
+    **Language:** `typescript`
+
+    **Description:** A standard React functional component with TypeScript props.
+
+    **Tags:** `react`, `typescript`, `component`
+
+    ```typescript
+    import React from 'react';
+
+    interface Props {
+      title: string;
+    }
+
+    export const MyComponent: React.FC<Props> = ({ title }) => {
+      return (
+        <div className="p-4 bg-zinc-900 rounded-xl border border-zinc-800">
+          <h2 className="text-xl font-bold text-white">{title}</h2>
+        </div>
+      );
+    };
+    ```
+  </Accordion>
+
+  <Accordion title="Express Route Handler">
+    **Language:** `typescript`
+
+    **Description:** A basic Express.js route handler with error handling.
+
+    **Tags:** `express`, `node`, `api`
+
+    ```typescript
+    import { Request, Response } from 'express';
+
+    export const getItems = async (req: Request, res: Response) => {
+      try {
+        const items = await db.collection('items').get();
+        res.status(200).json({
+          success: true,
+          data: items
+        });
+      } catch (error) {
+        res.status(500).json({
+          success: false,
+          message: 'Server Error'
+        });
+      }
+    };
+    ```
+  </Accordion>
+
+  <Accordion title="Python Flask API">
+    **Language:** `python`
+
+    **Description:** A simple Flask API endpoint with JSON response.
+
+    **Tags:** `python`, `flask`, `api`
+
+    ```python
+    from flask import Flask, jsonify, request
+
+    app = Flask(__name__)
+
+    @app.route('/api/data', methods=['GET'])
+    def get_data():
+        data = {
+            "status": "success",
+            "message": "Hello from Flask!"
+        }
+        return jsonify(data), 200
+
+    if __name__ == '__main__':
+        app.run(debug=True, port=5000)
+    ```
+  </Accordion>
+
+  <Accordion title="Tailwind Card Component">
+    **Language:** `html`
+
+    **Description:** A reusable card component using Tailwind CSS utility classes.
+
+    **Tags:** `tailwind`, `css`, `html`
+
+    ```html
+    <div class="max-w-sm rounded overflow-hidden shadow-lg bg-white p-6 border border-gray-200">
+      <div class="font-bold text-xl mb-2 text-gray-800">Card Title</div>
+      <p class="text-gray-700 text-base">
+        This is a simple card component built with Tailwind CSS.
+      </p>
+      <div class="mt-4">
+        <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+          Action
+        </button>
+      </div>
+    </div>
+    ```
+  </Accordion>
+
+  <Accordion title="SQL Create Table">
+    **Language:** `sql`
+
+    **Description:** A standard SQL table definition for user accounts.
+
+    **Tags:** `sql`, `database`, `schema`
+
+    ```sql
+    CREATE TABLE users (
+        id SERIAL PRIMARY KEY,
+        username VARCHAR(50) UNIQUE NOT NULL,
+        email VARCHAR(100) UNIQUE NOT NULL,
+        password_hash TEXT NOT NULL,
+        created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
+        updated_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
+    );
+    ```
+  </Accordion>
+</AccordionGroup>

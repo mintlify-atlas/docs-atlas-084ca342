@@ -1,0 +1,87 @@
+---
+title: "Managing snippets"
+description: "Create, edit, search, pin, favorite, and copy code snippets"
+---
+
+Snippets are the core unit of Snippet Bubble Manager. Each snippet stores a title, code block, language, optional description, tags, and folder assignment. You can pin and favorite snippets for quick access, copy them to the clipboard with one click, and search across all fields in real time.
+
+## Create a snippet
+
+<Steps>
+  <Step title="Open the new snippet form">
+    Click the **New Snippet** button in the header. The snippet form opens as a modal.
+  </Step>
+  <Step title="Fill in the required fields">
+    Enter a **Title** — this is the only required field. Then set the remaining fields as needed:
+
+    | Field | Description |
+    |---|---|
+    | Title | Short, descriptive name for the snippet (required) |
+    | Language | Programming language for syntax highlighting — select from the dropdown |
+    | Folder | Optional folder to assign the snippet to |
+    | Description | Free-text notes about what the snippet does |
+    | Tags | Comma-separated keywords (e.g., `fetch, async, error-handling`) |
+    | Code | The code body — edited in the Monaco editor |
+  </Step>
+  <Step title="Write or generate the code">
+    Type directly in the Monaco editor. The editor provides syntax highlighting based on the selected language, undo/redo (up to 50 history entries), and code formatting.
+
+    To generate code from a text description, see [AI snippet generation](/features/ai-generation).
+  </Step>
+  <Step title="Format the code (optional)">
+    Click the **Format** button in the editor toolbar to auto-format the code:
+
+    - **JSON**: pretty-prints with your configured indent size.
+    - **All other languages**: applies brace-based indentation with your configured indent size and brace style (`same-line` or `next-line`).
+  </Step>
+  <Step title="Save the snippet">
+    Click **Save**. The snippet appears in the list immediately.
+  </Step>
+</Steps>
+
+## Edit and delete snippets
+
+To edit a snippet, click the **Edit** icon on the snippet card. The same form opens pre-populated with the snippet's current values. Make your changes and click **Save**.
+
+To delete a snippet, click the **Delete** icon on the snippet card. Deletion is permanent.
+
+## Copy a snippet
+
+Click the **Copy** icon on any snippet card. The code is written to your clipboard. A visual indicator confirms the copy for 2 seconds, and the snippet's `lastCopiedAt` timestamp is updated automatically.
+
+## Pin and favorite snippets
+
+Hover over a snippet card to reveal quick-action buttons:
+
+- **Pin** — moves the snippet to the **Pinned** tab for fast access.
+- **Favorite** — marks the snippet as a favorite, visible under the **Favorites** tab.
+
+Both states are toggles. Click again to remove the pin or favorite.
+
+## Search and filter
+
+<Note>
+  Search runs in real time as you type — no need to press Enter.
+</Note>
+
+Use the search bar at the top of the snippet list to filter snippets. The search query matches against:
+
+- Title
+- Code content
+- Language
+- Tags
+
+Use the tab bar to narrow your view:
+
+| Tab | Shows |
+|---|---|
+| All | Every snippet |
+| Pinned | Snippets with `isPinned: true` |
+| Favorites | Snippets with `isFavorite: true` |
+| Folder tabs | Snippets assigned to that folder |
+
+Search and tab filters apply together, so you can search within Pinned or within a specific folder.
+
+<Tip>
+  When using AI generation, pressing **Enter** in the AI prompt field triggers generation immediately — you don't need to click the Generate button.
+</Tip>

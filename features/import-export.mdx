@@ -1,0 +1,55 @@
+---
+title: "Import and export"
+description: "Back up your snippet library or migrate snippets between accounts"
+---
+
+You can export your entire snippet library to a JSON file and import it back at any time. This is useful for backups, sharing snippet collections, or migrating to a different account.
+
+## Export your snippets
+
+Click the **Download** icon in the application header. Your browser downloads a file named `snippets-export-YYYY-MM-DD.json` containing all your snippets as a JSON array.
+
+### Export file format
+
+The export file is a JSON array of snippet objects. Each object includes all fields stored for that snippet:
+
+```json
+[
+  {
+    "title": "Fetch with error handling",
+    "code": "async function fetchData(url) {\n  try {\n    const res = await fetch(url);\n    if (!res.ok) throw new Error(res.statusText);\n    return await res.json();\n  } catch (err) {\n    console.error(err);\n  }\n}",
+    "language": "javascript",
+    "description": "A fetch wrapper with try/catch",
+    "tags": ["fetch", "async", "error-handling"],
+    "isFavorite": false,
+    "isPinned": true
+  }
+]
+```
+
+## Import snippets
+
+Click the **Upload** icon in the header, then select a `.json` file from your file system.
+
+<Warning>
+  Importing a large library may take a moment. Snippets are written to Firestore one at a time, so importing hundreds of snippets will take longer than importing a handful.
+</Warning>
+
+### What happens during import
+
+1. The file is read and parsed as JSON.
+2. Each item is validated — it must have both a `title` and a `code` field to be imported.
+3. The `id`, `ownerId`, `createdAt`, and `updatedAt` fields from the file are ignored and regenerated fresh for your account.
+4. The remaining fields (`language`, `description`, `tags`, `isFavorite`, `isPinned`, `folderId`) are carried over as-is.
+5. A confirmation message tells you how many snippets were successfully imported.
+
+<Note>
+  The `id`, `ownerId`, `createdAt`, and `updatedAt` fields are always regenerated on import. You cannot transfer ownership of snippets by including an `ownerId` in the file — imported snippets are always assigned to your current account.
+</Note>
+
+### Import validation rules
+
+| Rule | Behavior on failure |
+|---|---|
+| File must be a JSON array | Import aborts with an error |
+| Each item must have `title` and `code` | Item is skipped; others continue |

@@ -1,0 +1,148 @@
+---
+title: "Data model"
+description: "TypeScript interfaces and Firestore collection schemas for snippets, folders, and user profiles"
+---
+
+Snippet Bubble Manager stores all data in three Firestore collections: `snippets`, `folders`, and `users`. Each collection maps directly to a TypeScript interface defined in `types.ts`.
+
+<Note>
+  All timestamp fields (`createdAt`, `updatedAt`, `lastCopiedAt`) are stored as ISO 8601 strings (e.g. `"2024-03-15T10:30:00.000Z"`), not Firestore `Timestamp` objects.
+</Note>
+
+<Note>
+  `ownerId` is always set to the authenticated user's Firebase Auth UID when a document is created. Firestore security rules reject writes where `ownerId` does not match the requesting user.
+</Note>
+
+## Snippet
+
+The `Snippet` interface represents a saved code snippet. Documents are stored in the `snippets` collection with auto-generated Firestore IDs.
+
+<ResponseField name="id" type="string">
+  Firestore auto-generated document ID. Not stored as a field inside the document — it is the document's path segment.
+</ResponseField>
+
+<ResponseField name="title" type="string" required>
+  Display title for the snippet. Must be between 1 and 100 characters.
+</ResponseField>
+
+<ResponseField name="code" type="string" required>
+  The snippet's code content. Must be between 1 and 10,000 characters.
+</ResponseField>
+
+<ResponseField name="language" type="string">
+  Lowercase language identifier used for syntax highlighting (e.g. `"javascript"`, `"python"`). Must be one of the [supported language values](/reference/languages). Defaults to `"text"` if omitted.
+</ResponseField>
+
+<ResponseField name="description" type="string">
+  Optional plain-text description of the snippet. Up to 500 characters.
+</ResponseField>
+
+<ResponseField name="tags" type="string[]">
+  Array of tag strings for categorization and filtering. Up to 10 items, each under 30 characters.
+</ResponseField>
+
+<ResponseField name="isFavorite" type="boolean">
+  Marks the snippet as a favorite. Defaults to `false`. Favorite snippets appear in the Favorites filter view.
+</ResponseField>
+
+<ResponseField name="isPinned" type="boolean">
+  Pins the snippet to the top of the list. Defaults to `false`.
+</ResponseField>
+
+<ResponseField name="ownerId" type="string" required>
+  Firebase Auth UID of the user who owns this snippet. Set automatically on creation and cannot be changed.
+</ResponseField>
+
+<ResponseField name="lastCopiedAt" type="string">
+  ISO 8601 timestamp recording when the snippet's code was last copied to the clipboard. Updated automatically each time you copy the snippet.
+</ResponseField>
+
+<ResponseField name="createdAt" type="string" required>
+  ISO 8601 timestamp set when the snippet is first saved.
+</ResponseField>
+
+<ResponseField name="updatedAt" type="string" required>
+  ISO 8601 timestamp updated every time the snippet is modified.
+</ResponseField>
+
+<ResponseField name="folderId" type="string | null">
+  The ID of the parent `Folder` document, or `null` when the snippet is not inside a folder.
+</ResponseField>
+
+### Example Snippet document
+
+```json
+{
+  "title": "Fetch user by ID",
+  "code": "const user = await db.collection('users').doc(userId).get();",
+  "language": "javascript",
+  "description": "Fetches a single Firestore user document by its ID.",
+  "tags": ["firestore", "javascript", "database"],
+  "isFavorite": false,
+  "isPinned": true,
+  "ownerId": "uid_abc123xyz",
+  "lastCopiedAt": "2024-03-15T14:22:00.000Z",
+  "createdAt": "2024-03-01T09:00:00.000Z",
+  "updatedAt": "2024-03-15T14:22:00.000Z",
+  "folderId": "folder_def456uvw"
+}
+```
+
+---
+
+## Folder
+
+The `Folder` interface represents a container for grouping snippets. Documents are stored in the `folders` collection with auto-generated Firestore IDs.
+
+<ResponseField name="id" type="string">
+  Firestore auto-generated document ID.
+</ResponseField>
+
+<ResponseField name="name" type="string" required>
+  Display name for the folder. Must be between 1 and 100 characters.
+</ResponseField>
+
+<ResponseField name="ownerId" type="string" required>
+  Firebase Auth UID of the user who owns this folder. Set automatically on creation.
+</ResponseField>
+
+<ResponseField name="createdAt" type="string" required>
+  ISO 8601 timestamp set when the folder is first created.
+</ResponseField>
+
+<ResponseField name="updatedAt" type="string" required>
+  ISO 8601 timestamp updated every time the folder is modified.
+</ResponseField>
+
+### Example Folder document
+
+```json
+{
+  "name": "Backend utilities",
+  "ownerId": "uid_abc123xyz",
+  "createdAt": "2024-02-20T08:00:00.000Z",
+  "updatedAt": "2024-02-20T08:00:00.000Z"
+}
+```
+
+---
+
+## UserProfile
+
+The `UserProfile` interface represents the authenticated user's public profile data. Documents are stored in the `users` collection, keyed by the user's Firebase Auth UID. Only the owner can read or write their own profile document.
+
+<ResponseField name="uid" type="string" required>
+  The user's Firebase Auth UID. This is also the Firestore document ID for the user's profile.
+</ResponseField>
+
+<ResponseField name="email" type="string" required>
+  The user's email address, sourced from Firebase Auth.
+</ResponseField>
+
+<ResponseField name="displayName" type="string">
+  The user's display name. Optional — may be `undefined` if the user has not set one.
+</ResponseField>
+
+<ResponseField name="photoURL" type="string">
+  URL to the user's profile photo. Optional — may be `undefined` if no photo is set.
+</ResponseField>

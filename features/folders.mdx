@@ -1,0 +1,36 @@
+---
+title: "Organizing with folders"
+description: "Group snippets into folders to keep your library organized"
+---
+
+Folders let you group related snippets together. Once you create a folder, you can assign snippets to it and switch between folders using the tab bar. Each folder appears as its own tab in the filter bar.
+
+## Create a folder
+
+Click the **+ New Folder** button in the filter bar (the row that contains the All, Pinned, and Favorites tabs). Enter a name and confirm. The folder tab appears immediately.
+
+<Warning>
+  Folder names are limited to 50 characters. Names longer than 50 characters will be rejected by Firestore validation rules.
+</Warning>
+
+## Assign a snippet to a folder
+
+You assign a snippet to a folder through the snippet form:
+
+1. Open the **New Snippet** form or click **Edit** on an existing snippet.
+2. In the **Folder** dropdown, select the target folder.
+3. Click **Save**.
+
+A snippet can belong to only one folder at a time. To move a snippet to a different folder, edit the snippet and choose a different folder from the dropdown. To remove the folder assignment entirely, select the empty option at the top of the dropdown.
+
+## Browse snippets by folder
+
+Click a folder tab in the filter bar to view only the snippets assigned to that folder. The search bar still works when a folder tab is active, so you can search within a folder.
+
+## Delete a folder
+
+Hover over a folder tab to reveal the **Delete** button (a trash icon). Click it to delete the folder.
+
+<Note>
+  Deleting a folder does not delete the snippets inside it. All snippets that were assigned to the deleted folder are unassigned and return to the **All** tab. Their content is fully preserved.
+</Note>

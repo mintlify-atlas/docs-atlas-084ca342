@@ -1,0 +1,59 @@
+---
+title: "Introduction"
+description: "Snippet Bubble Manager gives you instant access to your personal code library from a floating, always-on-top bubble that works on top of any web content."
+---
+
+If you find yourself copying the same code blocks from old projects, Stack Overflow answers, or scattered notes, Snippet Bubble Manager solves that problem. It keeps your snippets synced to Firebase and surfaces them through a draggable bubble UI that stays visible no matter what you're working on.
+
+<Note>
+  Snippet Bubble Manager requires a Firebase account with Firestore and Google Authentication enabled. AI generation features also require a Google Gemini API key.
+</Note>
+
+## Who it's for
+
+Snippet Bubble Manager is built for developers who:
+
+- Reuse the same boilerplate, utility functions, or config blocks across multiple projects
+- Want their snippet library available in the browser without switching to a separate app
+- Need real-time sync across devices via Firebase
+- Want AI-assisted snippet creation powered by Google Gemini
+
+## Key capabilities
+
+<CardGroup cols={2}>
+  <Card title="Floating bubble UI" icon="circle-dot">
+    A draggable, always-visible bubble expands into a quick-access snippet panel. It sits on top of any web content so your library is always one click away.
+  </Card>
+  <Card title="One-click copy" icon="copy">
+    Copy any snippet to your clipboard instantly. Firestore records the last-copied timestamp so you can see what you use most.
+  </Card>
+  <Card title="Firebase sync" icon="cloud">
+    Snippets are stored in Firestore with ownership-based security rules. Only you can read or modify your snippets.
+  </Card>
+  <Card title="AI generation" icon="sparkles">
+    Describe what you need in plain English and Gemini generates the code, title, and language tag. Works directly in the Monaco editor.
+  </Card>
+  <Card title="Folders, tags, and favorites" icon="folder">
+    Organize snippets into folders, apply tags, and mark favorites. Pin the most-used snippets to the top of your list.
+  </Card>
+  <Card title="Full-text search" icon="magnifying-glass">
+    Search across snippet titles, code, tags, and language simultaneously from both the main view and the bubble panel.
+  </Card>
+  <Card title="Monaco editor" icon="code">
+    Write and edit code in a full Monaco (VS Code) editor with syntax highlighting and inline AI completions.
+  </Card>
+  <Card title="Import and export" icon="arrow-right-arrow-left">
+    Bulk-import snippets from a JSON file or export your entire library for backup and portability.
+  </Card>
+</CardGroup>
+
+## Get started
+
+<CardGroup cols={2}>
+  <Card title="Quickstart" icon="rocket" href="/quickstart">
+    Clone the repo, configure your environment, and have the app running in under 5 minutes.
+  </Card>
+  <Card title="Firebase setup" icon="fire" href="/firebase-setup">
+    Create your Firebase project, enable Google Auth, and wire up Firestore step by step.
+  </Card>
+</CardGroup>
