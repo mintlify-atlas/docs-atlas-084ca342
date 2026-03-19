@@ -30,22 +30,18 @@ description: "Get Snippet Bubble Manager running in under 5 minutes"
   </Step>
 
   <Step title="Configure environment variables">
-    Create a `.env.local` file in the project root with your Firebase credentials:
+    Create a `.env.local` file in the project root for your API keys:
 
     ```bash .env.local
-    VITE_FIREBASE_API_KEY=your_api_key_here
-    VITE_FIREBASE_AUTH_DOMAIN=your_project.firebaseapp.com
-    VITE_FIREBASE_PROJECT_ID=your_project_id
-    VITE_FIREBASE_STORAGE_BUCKET=your_project.appspot.com
-    VITE_FIREBASE_MESSAGING_SENDER_ID=your_sender_id
-    VITE_FIREBASE_APP_ID=your_app_id
+    GEMINI_API_KEY=your_gemini_api_key_here
+    APP_URL=http://localhost:3000
     ```
 
-    Find these values in the Firebase console under **Project Settings → Your apps → SDK setup and configuration**.
+    `GEMINI_API_KEY` is only required if you want AI snippet generation and inline code completions. You can skip it to get the app running first. `APP_URL` should match the address where the dev server runs.
   </Step>
 
   <Step title="Add firebase-applet-config.json">
-    Create `firebase-applet-config.json` in the project root. This file is imported directly by `firebase.ts`:
+    Create `firebase-applet-config.json` in the project root. This file is the primary Firebase configuration — it is imported directly by `firebase.ts`:
 
     ```json firebase-applet-config.json
     {
@@ -58,6 +54,8 @@ description: "Get Snippet Bubble Manager running in under 5 minutes"
       "firestoreDatabaseId": "(default)"
     }
     ```
+
+    Find these values in the Firebase console under **Project Settings → Your apps → SDK setup and configuration**. See [Firebase Setup](/firebase-setup) for the full walkthrough.
 
     <Note>
       Use `"(default)"` for `firestoreDatabaseId` unless you created a named Firestore database.

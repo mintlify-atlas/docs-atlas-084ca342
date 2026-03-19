@@ -59,8 +59,8 @@ Before allowing a create or update operation on a snippet, the rules run `isVali
 | `title` | string | 1–100 characters |
 | `code` | string | 1–10,000 characters |
 | `ownerId` | string | Must equal the authenticated user's UID |
-| `createdAt` | timestamp | — |
-| `updatedAt` | timestamp | — |
+| `createdAt` | string | ISO 8601 timestamp |
+| `updatedAt` | string | ISO 8601 timestamp |
 
 **Optional fields** — these are permitted but not required:
 
@@ -71,7 +71,7 @@ Before allowing a create or update operation on a snippet, the rules run `isVali
 | `tags` | list | Must be a list if present |
 | `isFavorite` | boolean | Must be a boolean if present |
 | `isPinned` | boolean | Must be a boolean if present |
-| `lastCopiedAt` | timestamp | — |
+| `lastCopiedAt` | string | ISO 8601 timestamp |
 | `folderId` | string \| null | Must be a string or null if present |
 
 The rules also enforce a strict field whitelist — any document containing a field not in the allowed list is rejected.
@@ -86,8 +86,8 @@ Before allowing a create or update operation on a folder, the rules run `isValid
 | --- | --- | --- |
 | `name` | string | 1–50 characters |
 | `ownerId` | string | Must equal the authenticated user's UID |
-| `createdAt` | timestamp | — |
-| `updatedAt` | timestamp | — |
+| `createdAt` | string | ISO 8601 timestamp |
+| `updatedAt` | string | ISO 8601 timestamp |
 
 ## CRUD permissions
 
